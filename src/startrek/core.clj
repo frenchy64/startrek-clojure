@@ -1,4 +1,7 @@
 (ns startrek.core
+  {:lang :core.typed
+   :core.typed {:features #{:runtime-infer}}
+   }
    (:require [clojure.java.io :as io]
              [clojure.edn :as edn]
              [clojure.data.generators :as gen]
@@ -8,7 +11,8 @@
              [startrek.enterprise :as e]
              [startrek.world :as w]
              [startrek.nav :as n]
-             [startrek.computer :as c])
+             [startrek.computer :as c]
+             [clojure.core.typed :as t])
    (:gen-class :main true))
 
 (def game-state (atom {}))
@@ -164,3 +168,20 @@
                   c/pick-coordinate  user-input 
                   ]
     (play-game))))
+
+(comment
+  (defn play-the-game []
+    (let [rdr 
+          (clojure.lang.LineNumberingPushbackReader.
+            (java.io.StringReader.
+              (str (apply str
+                          (interpose
+                            "\n"
+                            (cons 1
+                                  (repeatedly 30 #(rand-int 3)))))
+                   ;; might invoke a NPE, but it usually
+                   ;; guarantees the game ends.
+                   "q\n")))]
+      (binding [*in* rdr]
+        (-main))))
+  )
