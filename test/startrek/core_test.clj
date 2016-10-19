@@ -13,8 +13,8 @@
                                  :energy energy?
                                  :sector [6 7]
                                  :quadrant [2 3]}
-                    :quads {}
-                    :current-sector {}
+                    :quads []
+                    :current-sector []
                     :current-klingons [{:sector [2 8] :energy 200} {:sector [3 8] :energy 0} {:sector [3 8] :energy 200}]
                     :starting-klingons 17
                     :stardate {:start 3200 :current 3220 :end 30}})]
@@ -35,8 +35,8 @@
                                  :energy energy?
                                  :sector [6 7]
                                  :quadrant [2 3]}
-                    :quads {}
-                    :current-sector {}
+                    :quads []
+                    :current-sector []
                     :current-klingons []
                     :starting-klingons 17
                     :stardate {:start 3200 :current 3220 :end 30}})]
