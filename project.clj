@@ -9,7 +9,9 @@
                  [org.clojure/core.typed "0.3.29-SNAPSHOT"]
                  ]
   :profiles {:1.5 {:dependencies [[org.clojure/clojure "1.5.0"]]}
-             :dev {:dependencies [[midje "1.6.3"]]}
+             :dev {:dependencies [[midje "1.9.0-alpha5"
+                                   :exclusions [marick/such]]
+                                  [marick/suchwow "5.2.4"]]}
              }
   :injections [(require 'clojure.core.typed)
                (clojure.core.typed/install
