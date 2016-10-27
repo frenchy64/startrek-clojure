@@ -12,7 +12,8 @@
              [startrek.world :as w]
              [startrek.nav :as n]
              [startrek.computer :as c]
-             [clojure.core.typed :as t])
+             [clojure.core.typed :as t]
+             [clojure.spec :as s])
    (:gen-class :main true))
 
 (def game-state (atom {}))
