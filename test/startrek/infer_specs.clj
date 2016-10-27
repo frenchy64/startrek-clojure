@@ -1,5 +1,5 @@
-(ns startrek.infer-types
+(ns startrek.infer-specs
   (:require [startrek.infer-startrek
              :as i]))
 
-(i/infer :type)
+(i/infer :spec)
