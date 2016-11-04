@@ -21,6 +21,23 @@
   '[startrek.core
     ])
 
+(defn play-the-game []
+  (let [rdr 
+        (clojure.lang.LineNumberingPushbackReader.
+          (java.io.StringReader.
+            (str (apply str
+                        (interpose
+                          "\n"
+                          (cons 1
+                                (repeatedly 8 #(rand-int 7)))))
+                 ;; might invoke a NPE, but it usually
+                 ;; guarantees the game ends.
+                 "q\n")))]
+    (binding [*in* rdr]
+      (try
+        ((find-var 'startrek.core/-main))
+        (catch NullPointerException _)))))
+
 (defn infer [spec-or-type]
   (binding [*infer-fn* (case spec-or-type
                          :type t/runtime-infer
@@ -43,23 +60,7 @@
     (apply require tests)
     (apply run-tests tests)
 
-    (defn play-the-game []
-      (let [rdr 
-            (clojure.lang.LineNumberingPushbackReader.
-              (java.io.StringReader.
-                (str (apply str
-                            (interpose
-                              "\n"
-                              (cons 1
-                                    (repeatedly 8 #(rand-int 3)))))
-                     ;; might invoke a NPE, but it usually
-                     ;; guarantees the game ends.
-                     "q\n")))]
-        (binding [*in* rdr]
-          (try
-            ((find-var 'startrek.core/-main))
-            (catch NullPointerException _)))))
 
-    ;(play-the-game)
+    (play-the-game)
 
     (infer-anns infer-files)))
