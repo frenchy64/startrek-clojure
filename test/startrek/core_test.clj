@@ -21,7 +21,7 @@
              (c/game-over? game-state) => result?
              (provided
                ; (println anything) => :default :times (range)
-               (w/remaining-klingon-count {}) => 17 :times (range))))
+               (w/remaining-klingon-count []) => 17 :times (range))))
        shields? energy? result?
        0 0 truthy
        -1.0 0 truthy
@@ -42,7 +42,7 @@
                     :stardate {:start 3200 :current 3220 :end 30}})]
              (c/game-over? game-state) => result?
              (provided
-               (w/remaining-klingon-count {}) => 17 :times (range))))
+               (w/remaining-klingon-count []) => 17 :times (range))))
        shields? energy? result?
        0 0 truthy
        -1.0 0 truthy

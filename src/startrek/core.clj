@@ -54,13 +54,13 @@
 (defn game-over-out-of-time [game-state]
   (u/message)
   (u/message (format "IT IS STARDATE %d" (get-in @game-state [:stardate :current])))
-  (u/message (format "THERE ARE STILL %s KLINGON BATTLE CRUISERS" (w/remaining-klingon-count (:quads @game-state))))
+  (u/message (format "THERE ARE STILL %d KLINGON BATTLE CRUISERS" (w/remaining-klingon-count (:quads @game-state))))
   true)
 
 (defn game-over-destroyed [game-state]
   (u/message)
   (u/message "THE ENTERPRISE HAS BEEN DESTROYED. THE FEDERATION WILL BE CONQUERED")
-  (u/message (format "THERE ARE STILL %s KLINGON BATTLE CRUISERS" (w/remaining-klingon-count (:quads @game-state))))
+  (u/message (format "THERE ARE STILL %d KLINGON BATTLE CRUISERS" (w/remaining-klingon-count (:quads @game-state))))
   true)
 
 (defn game-over-powerless [game-state]
@@ -69,7 +69,7 @@
   (let [enterprise (k/klingon-turn (get-in @game-state [:enterprise]) (get-in @game-state [:current-klingons]))]
     (if (neg? (get-in enterprise [:shields]))
       (game-over-destroyed game-state)
-      (u/message (format "THERE ARE STILL %s KLINGON BATTLE CRUISERS" 
+      (u/message (format "THERE ARE STILL %d KLINGON BATTLE CRUISERS" 
                        (w/remaining-klingon-count (:quads @game-state))))))
   true)
 

@@ -28,15 +28,27 @@
             (str (apply str
                         (interpose
                           "\n"
-                          (cons 1
-                                (repeatedly 8 #(rand-int 7)))))
-                 ;; might invoke a NPE, but it usually
-                 ;; guarantees the game ends.
-                 "q\n")))]
+                          [1 1 1 2 4 2 5 23 "q"]))
+                 )))]
     (binding [*in* rdr]
       (try
         ((find-var 'startrek.core/-main))
         (catch NullPointerException _)))))
+
+(def tests 
+  '[startrek.core-test
+    startrek.nav-test
+    startrek.world-test
+    startrek.klingon-test
+    startrek.enterprise-test])
+
+(defn exercise-tests []
+  ;; FIXME need to forcibly reload the :lang'd file. Why?
+  (apply require tests)
+  (apply run-tests tests)
+
+  (play-the-game)
+  )
 
 (defn infer [spec-or-type]
   (binding [*infer-fn* (case spec-or-type
@@ -48,19 +60,6 @@
     ;; don't compile
     (delete-anns infer-files)
 
-    (def tests 
-      '[startrek.core-test
-        startrek.nav-test
-        startrek.world-test
-        startrek.klingon-test
-        startrek.enterprise-test])
-
-
-    ;; FIXME need to forcibly reload the :lang'd file. Why?
-    (apply require tests)
-    (apply run-tests tests)
-
-
-    (play-the-game)
+    (exercise-tests)
 
     (infer-anns infer-files)))
