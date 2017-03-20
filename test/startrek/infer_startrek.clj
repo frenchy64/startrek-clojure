@@ -1,7 +1,8 @@
 (ns startrek.infer-startrek
   (:use clojure.test)
   (:require [clojure.core.typed :as t]
-            [clojure.core.typed.runtime-infer :as infer]))
+            [clojure.core.typed.runtime-infer :as infer])
+  (:import (java.util.concurrent TimeoutException FutureTask TimeUnit)))
 
 (t/install #{:load})
 
