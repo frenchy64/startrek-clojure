@@ -19,8 +19,8 @@
 ;; Public commands intended to be exported by this namespace
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; fetch default game state
-(defn new-game-state
-  "Create a new world game state. Resets the enterprise and the quadrants."
+(defn reset-game-state!
+  "Resets the enterprise and the quadrants."
   [game-state]
   (let [stardate (* 100 (+ 20 (gen-uniform 1 21)))
         quads (reset-quadrants)]
@@ -33,6 +33,11 @@
              :lrs-history (create-empty-lrs-history)
              :starting-klingons (remaining-klingon-count quads)
              :stardate {:start stardate :current stardate :end 30}})))
+
+(defn new-game-state
+  "Create a new world game state. Resets the enterprise and the quadrants."
+  []
+  (doto (atom {}) reset-game-state!))
 
 (defn short-range-scan-command 
   "Creates most of the visible UI for the player. You get to see
